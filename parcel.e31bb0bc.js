@@ -29903,33 +29903,40 @@ var App = /*#__PURE__*/function (_React$Component) {
 
   var _super = _createSuper(App);
 
-  function App() {
+  function App(props) {
     var _this;
 
     _classCallCheck(this, App);
 
-    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
-
-    _this = _super.call.apply(_super, [this].concat(args));
+    _this = _super.call(this, props);
 
     _defineProperty(_assertThisInitialized(_this), "handleClick", function (e) {
-      ReactDOM.render( /*#__PURE__*/_react.default.createElement(App, null), document.getElementById('app'));
+      countries.getCountryData().then(function (country) {
+        _this.setState(function (state) {
+          return {
+            country: country.name
+          };
+        });
+      });
     });
 
+    _this.state = {
+      country: 'Loading...'
+    };
+    countries.getCountryData().then(function (country) {
+      _this.setState({
+        country: country.name
+      });
+    });
     return _this;
   }
 
   _createClass(App, [{
     key: "render",
     value: function render() {
-      countries.getCountryData().then(function (country) {
-        document.querySelector('#country').innerHTML = country.name;
-      });
       return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("h1", null, "Random Country Generator"), /*#__PURE__*/_react.default.createElement("p", {
         id: "country"
-      }, "Loading..."), /*#__PURE__*/_react.default.createElement("button", {
+      }, this.state.country), /*#__PURE__*/_react.default.createElement("button", {
         onClick: this.handleClick
       }, "New Country"));
     }
@@ -29967,7 +29974,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49748" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51406" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
